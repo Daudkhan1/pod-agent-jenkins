@@ -3,6 +3,16 @@ pipeline {
         label 'kubeagent'  // Using the label for the Kubernetes pod template
     }
     stages {
+        stage('Install kubectl') {
+            steps {
+                script {
+                    // Download and install kubectl
+                    sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl'
+                    sh 'chmod +x kubectl'
+                    sh 'sudo mv kubectl /usr/local/bin/kubectl'
+                }
+            }
+        }
         stage('Create Pod on Kubernetes') {
             steps {
                 script {
