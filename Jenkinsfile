@@ -1,11 +1,4 @@
-node {
-    // Print current workspace directory
-    echo "Current workspace: ${pwd()}"
-
-    // Print the list of files in the workspace directory
-    sh 'ls -al'
-
-    // Read the pod.yaml file
+node(POD_LABEL) {
     def podYaml = readFile('pod.yaml')
     
     podTemplate(yaml: podYaml) {
