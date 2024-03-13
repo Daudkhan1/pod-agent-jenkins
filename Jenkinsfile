@@ -22,7 +22,7 @@ spec:
       container('docker') {
         stage('Shell Execution') {
           sh '''
-          echo "Hello! I am executing shell"
+          docker build -t myimage .
           '''
         }
       }
