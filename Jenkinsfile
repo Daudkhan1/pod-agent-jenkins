@@ -1,7 +1,4 @@
-pipeline {
-    agent {
-        kubernetes {
-            yaml '''
+podTemplate(yaml:'''
 apiVersion: v1
 kind: Pod
 metadata:
@@ -107,7 +104,7 @@ spec:
             '''
         }
     }
-    stages {
+    node(POD_LABEL){
         stage('Get a Maven project') {
             steps {
                 container('jnlp') {
