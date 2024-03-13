@@ -23,7 +23,7 @@ spec:
       container('docker') {
         stage('Shell Execution') {
           sh '''
-          docker build -t my-image .
+          trivy image jenkins/jenkins
           '''
         }
       }
