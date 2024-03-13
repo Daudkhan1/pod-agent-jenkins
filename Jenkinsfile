@@ -13,9 +13,6 @@ spec:
   - name: trivy
     image: aquasec/trivy:latest
     command: ["sleep", "infinity"]
-  - name: kaniko
-    image: gcr.io/kaniko-project/executor:latest
-    command: ["sleep", "infinity"] # Adjust as needed
   - name: sonarqube
     image: sonarqube:latest
     command: ["sleep", "infinity"] # Adjust as needed
