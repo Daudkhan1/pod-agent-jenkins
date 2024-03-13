@@ -1,39 +1,31 @@
-podTemplate(containers: [
-    containerTemplate(
-        name: 'docker', 
-        image: 'docker:latest', 
-        command: 'sleep', 
-        args: '30d'
-        ),
-    containerTemplate(
-        name: 'trivy', 
-        image: 'aquasec/trivy:latest', 
-        command: 'sleep', 
-        args: '30d')
-  ]) {
-
-    node(POD_LABEL) {
-        stage('image build') {
-            git 'https://github.com/Daudkhan1/pod-agent-jenkins.git/'
-            container('docker') {
-                stage('image build') {
-                    sh '''
-                    docker build -t myimage .
-                    '''
-                }
-            }
+podTemplate(yaml: '''
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: jnlp
+    image: jenkins/inbound-agent:latest
+  - name: docker
+    image: docker:latest
+    command: ["sleep", "infinity"]
+  - name: trivy
+    image: aquasec/trivy:latest
+    command: ["sleep", "infinity"]
+  - name: sonarqube
+    image: sonarqube:latest
+    command: ["sleep", "infinity"] # Adjust as needed
+''') {
+  node(POD_LABEL) {
+    stage('Get a Maven project') {
+      container('jnlp') {
+        stage('Shell Execution') {
+          sh '''
+          echo "Hello! I am executing shell"
+          '''
         }
-
-        stage('scan image') {
-            git url: 'https://github.com/Daudkhan1/pod-agent-jenkins.git/', branch: 'main'
-            container('trivy') {
-                stage('scan image') {
-                    sh '''
-                    trivy image my image
-                    '''
-                }
-            }
-        }
-
+      }
     }
+  }
 }
