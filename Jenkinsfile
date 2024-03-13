@@ -1,4 +1,7 @@
-podTemplate(yaml: '''
+pipeline {
+    agent {
+        kubernetes {
+            yaml '''
 apiVersion: v1
 kind: Pod
 metadata:
@@ -16,16 +19,17 @@ spec:
   - name: sonarqube
     image: sonarqube:latest
     command: ["sleep", "infinity"] # Adjust as needed
-''') {
-  node(POD_LABEL) {
-    stage('Get a Maven project') {
-      container('jnlp') {
-        stage('Shell Execution') {
-          sh '''
-          echo "Hello! I am executing shell"
-          '''
+'''
+            label POD_LABEL
         }
-      }
     }
-  }
+    stages {
+        stage('Get a Maven project') {
+            steps {
+                container('jnlp') {
+                    sh 'echo "Hello! I am executing shell"'
+                }
+            }
+        }
+    }
 }
