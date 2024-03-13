@@ -14,7 +14,7 @@ spec:
     image: aquasec/trivy:latest
     command: ["sleep", "infinity"]
 """) {
-  node('POD_LABEL') {
+  node(POD_LABEL) {
     stage('Get a Maven project') {
       container('jnlp') {
         stage('Shell Execution') {
