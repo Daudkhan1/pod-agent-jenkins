@@ -3,7 +3,6 @@ kind: Pod
 metadata:
   name: my-pod
   labels:
-    app: my-application
 spec:
   containers:
     - name: jnlp
