@@ -1,6 +1,6 @@
-node(POD_LABEL) {
+node {
     def podYaml = readFile('pod.yaml')
-    
+
     podTemplate(yaml: podYaml) {
         stage('Get a Maven project') {
             container('jnlp') {
