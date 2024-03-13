@@ -8,14 +8,21 @@ spec:
   - name: jnlp
     image: jenkins/inbound-agent:latest
   - name: docker
-    image: aquasec/trivy:latest  # Use an image that includes trivy
+    image: docker:latest
     command: ["sleep", "infinity"]
+    volumeMounts:
+    - name: docker-socket
+      mountPath: /var/run/docker.sock
   - name: trivy
-    image: aquasec/trivy:latest  # Use an image that includes trivy
+    image: aquasec/trivy:latest
     command: ["sleep", "infinity"]
   - name: sonarqube
     image: sonarqube:latest
     command: ["sleep", "infinity"] # Adjust as needed
+  volumes:
+  - name: docker-socket
+    hostPath:
+      path: /var/run/docker.sock
 ''') {
   node(POD_LABEL) {
     stage('Get a Maven project') {
