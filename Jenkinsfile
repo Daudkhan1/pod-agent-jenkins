@@ -19,7 +19,7 @@ spec:
 ''') {
   node(POD_LABEL) {
     stage('Get a Maven project') {
-      container('jnlp') {
+      container('docker') {
         stage('Shell Execution') {
           sh '''
           echo "Hello! I am executing shell"
