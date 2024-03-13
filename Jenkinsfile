@@ -101,10 +101,8 @@ spec:
   imagePullSecrets:
     - name: acdc-registry
   restartPolicy: Never
-            '''
-        }
-    }
-    node(POD_LABEL){
+''') {
+    node(POD_LABEL) {
         stage('Get a Maven project') {
             steps {
                 container('jnlp') {
@@ -116,4 +114,3 @@ spec:
         }
     }
 }
-
