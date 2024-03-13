@@ -6,7 +6,7 @@ metadata:
 spec:
   containers:
     - name: jnlp
-      image: jenkins/inbound-agent:alpine-jdk17
+      image: jenkins/inbound-agent:latest
       command:
         - "/bin/sh"
         - "-c"
