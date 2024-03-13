@@ -1,38 +1,31 @@
-pipeline {
-    agent any
-    
-    stages {
-        stage('Fetch Repository') {
-            steps {
-                // Checkout the repository
-                checkout scm
-            }
+podTemplate(yaml: '''
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: jnlp
+    image: jenkins/inbound-agent:latest
+  - name: docker
+    image: docker:latest
+    command: ["sleep", "infinity"]
+  - name: trivy
+    image: aquasec/trivy:latest
+    command: ["sleep", "infinity"]
+  - name: sonarqube
+    image: sonarqube:latest
+    command: ["sleep", "infinity"] # Adjust as needed
+''') {
+  node(POD_LABEL) {
+    stage('Get a Maven project') {
+      container('jnlp') {
+        stage('Shell Execution') {
+          sh '''
+          echo "Hello! I am executing shell"
+          '''
         }
-        
-        stage('Use pod.yaml') {
-            steps {
-                // Read the content of pod.yaml file
-                def podYamlContent = readFile('pod.yaml')
-                
-                // Output the content of pod.yaml
-                echo podYamlContent
-                
-                // You can use the podYamlContent as needed in your pipeline
-                // For example, you can use it in a podTemplate block
-                podTemplate(yaml: podYamlContent) {
-                    node(POD_LABEL) {
-                        stage('Get a Maven project') {
-                            container('jnlp') {
-                                stage('Shell Execution') {
-                                    sh '''
-                                    echo "Hello! I am executing shell"
-                                    '''
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+      }
     }
+  }
 }
