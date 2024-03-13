@@ -20,16 +20,18 @@ pipeline {
                     image: sonarqube:latest
                     command: ["sleep", "infinity"] # Adjust as needed
             '''
-            label POD_LABEL
         }
     }
-    stages {
-        stage('Get a Maven project') {
-            steps {
-                container('jnlp') {
-                    sh 'echo "Hello! I am executing shell"'
+    node (POD_LABEL) {
+        stages {
+            stage('Get a Maven project') {
+                steps {
+                    container('jnlp') {
+                        sh 'echo "Hello! I am executing shell"'
+                    }
                 }
             }
         }
     }
 }
+
