@@ -22,7 +22,7 @@ spec:
       container('docker') {
         stage('Shell Execution') {
           sh '''
-          docker build -t myimage .
+          trivy image my-image
           '''
         }
       }
