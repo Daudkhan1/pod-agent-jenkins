@@ -8,10 +8,10 @@ spec:
   - name: jnlp
     image: jenkins/inbound-agent:latest
   - name: docker
-    image: docker:latest
+    image: aquasec/trivy:latest  # Use an image that includes trivy
     command: ["sleep", "infinity"]
   - name: trivy
-    image: aquasec/trivy:latest
+    image: aquasec/trivy:latest  # Use an image that includes trivy
     command: ["sleep", "infinity"]
   - name: sonarqube
     image: sonarqube:latest
