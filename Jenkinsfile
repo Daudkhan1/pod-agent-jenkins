@@ -1,5 +1,5 @@
 podTemplate(yamlFile: '/var/jenkins_home/workspace/pod-create-job/pod.yaml') {
-  node('mypod') {
+  node(POD_LABEL) {
     stage('Get a Maven project') {
       container('jnlp') {
         stage('Shell Execution') {
