@@ -2,13 +2,15 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: my-pod
+  labels:
+    app: my-application
 spec:
   containers:
-  - name: jnlp
-    image: jenkins/inbound-agent:latest
-  - name: docker
-    image: docker:latest
-    command: ["sleep", "infinity"]  # Example command, adjust as needed
-  - name: trivy
-    image: aquasec/trivy:latest
-    command: ["sleep", "infinity"]  # Example command, adjust as needed
+    - name: jnlp
+      image: jenkins/inbound-agent:latest
+    - name: docker
+      image: docker:latest
+      command: ["sleep", "infinity"]  # Example command, adjust as needed
+    - name: trivy
+      image: aquasec/trivy:latest
+      command: ["sleep", "infinity"]  # Example command, adjust as needed
