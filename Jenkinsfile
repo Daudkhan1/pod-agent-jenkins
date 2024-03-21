@@ -7,9 +7,6 @@ spec:
   containers:
   - name: jnlp
     image: jenkins/inbound-agent:latest
-  - name: docker
-    image: aquasec/trivy:latest  # Use an image that includes trivy
-    command: ["sleep", "infinity"]
   - name: trivy
     image: aquasec/trivy:latest  # Use an image that includes trivy
     command: ["sleep", "infinity"]
