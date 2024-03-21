@@ -19,6 +19,9 @@ spec:
 
 ''') {
   node(POD_LABEL) {
+    stage('checkout') {
+      git 'https://github.com/Daudkhan1/pod-agent-jenkins.git'
+    }
     stage('Get a Maven project') {
       container('docker') {
         stage('Shell Execution') {
