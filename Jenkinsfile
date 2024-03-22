@@ -28,7 +28,11 @@ pipeline {
         stage('scan image') {
             steps {
                 container('trivy') {
-                    sh 'trivy image daudidrees/my-image'
+                    sh """
+            set -e
+            trivy --cache-dir .trivycache/ image --exit-code 0 --no-progress --input image.tar
+            trivy --cache-dir .trivycache/ image --exit-code 1 --ignore-unfixed --severity CRITICAL --no-progress --input image.tar
+            """
                 }
             }
         }
