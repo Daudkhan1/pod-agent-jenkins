@@ -5,24 +5,11 @@ pipeline {
         }
     }
     
-    // environment {
-    //     registry = 'daudidrees/my-image'
-    //     registryCredential = 'dockerhub'
-    //     DOCKER_IMAGE_NAME = 'daudidrees/my-image'
-    // }
-    
     stages {
-        // stage('Docker build image') {
-        //     steps {
-        //         container('docker') {
-        //             sh 'docker build -t daudidrees/my-image .'
-        //         }
-        //     }
-        // }
         stage('kaniko build image') {
             steps {
                 container('kaniko') {
-                    sh 'kaniko build -t daudidrees/my-image .'
+                    sh 'kaniko --dockerfile=Dockerfile --context='pwd' --destination=daudidrees/my-image:latest'
                 }
             }
         }  
@@ -40,14 +27,5 @@ pipeline {
                 }
             }
         }
-        // stage('docker push image') {
-        //     steps {
-        //         script {
-        //             docker.withRegistry('https://index.docker.io/v1', registryCredential) {
-        //                 docker.image(DOCKER_IMAGE_NAME).push()
-        //             }
-        //         }
-        //     }
-        // }
     }
 }
