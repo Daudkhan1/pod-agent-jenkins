@@ -9,6 +9,7 @@ pipeline {
         stage('kaniko build image') {
             steps {
                 container('kaniko') {
+                    sh 'cat /home/jenkins/agent/workspace/kaniko-build@tmp/durable-ebf05f3f/script.sh.copy'
                    sh 'kaniko --dockerfile=/home/jenkins/agent/workspace/pod-agent-jenkins_main1/Dockerfile --context=/home/jenkins/agent/workspace/pod-agent-jenkins_main1 --destination=daudidrees/my-image:latest'
 
                 }
