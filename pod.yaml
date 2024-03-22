@@ -7,9 +7,26 @@ spec:
   containers:
     - name: jnlp
       image: jenkins/inbound-agent:latest
+    - name: kaniko
+      image: gcr.io/kaniko-project/executor:debug
+      imagePullPolicy: Always
+      command: ["sleep", "infinity"]
+      volumeMounts:
+        - name: jenkins-docker-cfg
+          mountPath: /kaniko/.docker
     - name: docker
       image: docker:latest
       command: ["sleep", "infinity"]  # Example command, adjust as needed
+      volumeMounts:
+        - name: docker-socket
+          mountPath: /var/run/docker.sock
     - name: trivy
       image: aquasec/trivy:latest
       command: ["sleep", "infinity"]  # Example command, adjust as needed
+      volumeMounts:
+        - name: docker-socket
+          mountPath: /var/run/docker.sock
+  volumes:
+    - name: docker-socket
+      hostPath:
+        path: /var/run/docker.sock
