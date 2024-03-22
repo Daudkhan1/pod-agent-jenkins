@@ -9,7 +9,7 @@ pipeline {
         stage('kaniko build image') {
             steps {
                 container('kaniko') {
-                    sh 'kaniko --dockerfile=Dockerfile --context='pwd' --destination=daudidrees/my-image:latest'
+                    sh 'kaniko --dockerfile=/home/jenkins/agent/workspace/Dockerfile --context='pwd' --destination=daudidrees/my-image:latest'
                 }
             }
         }  
