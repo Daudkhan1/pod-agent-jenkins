@@ -1,1 +1,36 @@
+job('seedjob') {
+    description('Generates pipeline jobs from Jenkinsfiles in GitHub')
 
+    scm {
+        git('https://github.com/Daudkhan1/pod-agent-jenkins.git', 'main1')
+    }
+
+    steps {
+        script {
+            // Define jobs from Jenkinsfiles in the GitHub repository
+            pipelineJob('job1') {
+                definition {
+                    cps {
+                        script(readFileFromWorkspace('job1.groovy/Jenkinsfile'))
+                    }
+                }
+            }
+
+            pipelineJob('job2') {
+                definition {
+                    cps {
+                        script(readFileFromWorkspace('job2.groovy/Jenkinsfile'))
+                    }
+                }
+            }
+
+            pipelineJob('job3') {
+                definition {
+                    cps {
+                        script(readFileFromWorkspace('job3.groovy/Jenkinsfile'))
+                    }
+                }
+            }
+        }
+    }
+}
