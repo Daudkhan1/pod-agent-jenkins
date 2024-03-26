@@ -1,4 +1,4 @@
-job('seedjob') {
+pipelinejob('seedjob') {
     description('Generates pipeline jobs from Jenkinsfiles in GitHub')
 
     scm {
