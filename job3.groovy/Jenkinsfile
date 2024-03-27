@@ -1,8 +1,4 @@
-pipelineJob("job3") {
-    definition {
-        cps {
-            script('''
-                pipeline {
+pipeline {
                     agent any
                     stages {
                         stage('Build') {
@@ -25,7 +21,3 @@ pipelineJob("job3") {
                         }
                     }
                 }
-            '''.stripIndent())
-        }
-    }
-}
