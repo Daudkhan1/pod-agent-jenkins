@@ -1,36 +1,46 @@
-pipelinejob('seedjob') {
-    description('Generates pipeline jobs from Jenkinsfiles in GitHub')
+def pipelineJobNames = ['job1.groovy', 'job2.groovy', 'job3.groovy']
 
-    scm {
-        git('https://github.com/Daudkhan1/pod-agent-jenkins.git', 'main1')
-    }
-
-    steps {
-        script {
-            // Define jobs from Jenkinsfiles in the GitHub repository
-            pipelineJob('job1') {
-                definition {
-                    cps {
-                        script(readFileFromWorkspace('job1.groovy/Jenkinsfile'))
+for (String jobName : pipelineJobNames) {
+    pipelineJob(jobName) {
+        definition {
+            cpsScm {
+                scm {
+                    git {
+                        remote {
+                            url('https://github.com/Daudkhan1/pod-agent-jenkins.git')
+                        }
+                        branches('*/main1') // Optionally specify the branch to checkout
                     }
                 }
-            }
-
-            pipelineJob('job2') {
-                definition {
-                    cps {
-                        script(readFileFromWorkspace('job2.groovy/Jenkinsfile'))
-                    }
-                }
-            }
-
-            pipelineJob('job3') {
-                definition {
-                    cps {
-                        script(readFileFromWorkspace('job3.groovy/Jenkinsfile'))
-                    }
-                }
+                scriptPath("${jobName}/Jenkinsfile") // Specify the path to your script
             }
         }
     }
 }
+
+// Execute all Jobs in Arrayt
+pipelineJobNames = ['job1.groovy', 'job2.groovy', 'job3.groovy']
+pipelineJobNames.each { jobName ->
+    pipelineJob(jobName) {
+      //triggers {
+            //cron('* * * * *')
+        //}
+      definition {
+        cpsScm {
+            scm {
+                git {
+                    remote {
+                        url('https://github.com/Daudkhan1/pod-agent-jenkins.git')
+                    }
+                    branches('*/main1') // Optionally specify the branch to checkout
+                }
+            }
+          scriptPath("${jobName}/Jenkinsfile") // Specify the path to your script
+        }
+    }
+  }
+}
+
+
+
+
